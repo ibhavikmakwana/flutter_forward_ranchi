@@ -23,13 +23,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // API: https://api.disneyapi.dev/characters
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Disney Characters'),
       ),
+      body: Card(
+        elevation: 8,
+        margin: EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.network(
+                'https://static.wikia.nocookie.net/disney/images/6/61/Olu_main.png',
+                height: 120,
+                width: 120,
+              ),
+            ),
+            Expanded(child: Text('Olu Mel')),
+          ],
+        ),
+      ),
     );
   }
 }
-
