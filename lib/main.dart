@@ -24,6 +24,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // API: https://api.disneyapi.dev/characters
+  // QuickType (For JSON Parsing): https://app.quicktype.io/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
