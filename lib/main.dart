@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_forward_ranchi/CharactersModel.dart';
 import 'package:flutter_forward_ranchi/char_api_call.dart';
 
 void main() {
@@ -27,12 +28,18 @@ class _HomePageState extends State<HomePage> {
   // API: https://api.disneyapi.dev/characters
   // QuickType (For JSON Parsing): https://app.quicktype.io/
 
-  CharApiCall api= CharApiCall();
+  CharApiCall api = CharApiCall();
+  CharactersModel? model;
 
   @override
   void initState() {
     super.initState();
-    api.getCharacters();
+    init();
+  }
+
+  Future<void> init() async {
+    model = await api.getCharacters();
+    setState(() {});
   }
 
   @override
@@ -41,23 +48,31 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Disney Characters'),
       ),
-      body: Card(
-        elevation: 8,
-        margin: EdgeInsets.all(16),
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.network(
-                'https://static.wikia.nocookie.net/disney/images/6/61/Olu_main.png',
-                height: 120,
-                width: 120,
-              ),
+      body: model?.data == null
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              itemBuilder: (_, index) {
+                return Card(
+                  elevation: 8,
+                  margin: EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.network(
+                          model!.data[index].imageUrl,
+                          height: 120,
+                          width: 120,
+                        ),
+                      ),
+                      Expanded(child: Text(model!.data[index].name)),
+                    ],
+                  ),
+                );
+              },
             ),
-            Expanded(child: Text('Olu Mel')),
-          ],
-        ),
-      ),
     );
   }
 }
