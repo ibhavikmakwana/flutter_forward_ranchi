@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_forward_ranchi/char_api_call.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,6 +26,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // API: https://api.disneyapi.dev/characters
   // QuickType (For JSON Parsing): https://app.quicktype.io/
+
+  CharApiCall api= CharApiCall();
+
+  @override
+  void initState() {
+    super.initState();
+    api.getCharacters();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
