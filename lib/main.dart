@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_forward_ranchi/CharactersModel.dart';
 import 'package:flutter_forward_ranchi/char_api_call.dart';
+import 'package:flutter_forward_ranchi/detail_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -54,21 +55,26 @@ class _HomePageState extends State<HomePage> {
             )
           : ListView.builder(
               itemBuilder: (_, index) {
-                return Card(
-                  elevation: 8,
-                  margin: EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.network(
-                          model!.data[index].imageUrl,
-                          height: 120,
-                          width: 120,
+                return InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => DetailScreen(data: model!.data[index],)));
+                  },
+                  child: Card(
+                    elevation: 8,
+                    margin: EdgeInsets.all(16),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.network(
+                            model!.data[index].imageUrl,
+                            height: 120,
+                            width: 120,
+                          ),
                         ),
-                      ),
-                      Expanded(child: Text(model!.data[index].name)),
-                    ],
+                        Expanded(child: Text(model!.data[index].name)),
+                      ],
+                    ),
                   ),
                 );
               },
